@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private cards cards_data[];
     private com.example.tinderv1.Cards.arrayAdapter arrayAdapter;
     private int i;
-    private double latitude;
-    private double longitude;
+    private double Latitude;
+    private double Longitude;
 
 
     private FirebaseAuth mAuth;
@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
         // check if GPS enabled
         if(gps.canGetLocation()) {
 
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
+            double Latitude = gps.getLatitude();
+            double Longitude = gps.getLongitude();
             //String hash = GeoFireUtils.getGeoHashForLocation(new GeoLocation(latitude, longitude));
 
         }else{
@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
             // Ask user to enable GPS/network in settings
             gps.showSettingsAlert();
         }
+
+        Latitude = gps.latitude;
+        Longitude = gps.longitude;
 
         usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
@@ -146,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
             public void onScroll(float scrollProgressPercent) {
             }
         });
-
-
+        
         // Optionally add an OnItemClickListener
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
@@ -211,14 +213,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     //By default geo location point Cochin(9.9392;,76.2596;)
-    //By default geo location point kollam
+    //By default geo location point kollam()
         public void getOppositeSexUsers () {
-        GeoLocation center = new GeoLocation(gps.getLatitude(), gps.getLongitude());
-            final double radiusInM = 50 * 1000;
+        GeoLocation center = new GeoLocation(Latitude, Longitude);
+             double radiusInM = 50 * 1000;
             List<GeoQueryBounds> bounds = GeoFireUtils.getGeoHashQueryBounds(center, radiusInM);
-            final List<Task<QuerySnapshot>> tasks = new ArrayList<>();
+           // final List<Task<QuerySnapshot>> tasks = new ArrayList<>();
             for (GeoQueryBounds b : bounds) {
                 ChildEventListener q = usersDb.orderByChild("geohash")
+
                         .startAt(b.startHash)
                         .endAt(b.endHash).addChildEventListener(new ChildEventListener() {
                             @Override
