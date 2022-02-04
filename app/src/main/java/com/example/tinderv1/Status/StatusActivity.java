@@ -64,7 +64,7 @@ public class StatusActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     for(DataSnapshot accepted : dataSnapshot.getChildren()){
-                        FetchUserStatus(accepted.getKey());
+                        FetchAcceptedStatus(accepted.getKey());
                     }
                 }
             }
@@ -84,7 +84,7 @@ public class StatusActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     for(DataSnapshot rejected : dataSnapshot.getChildren()){
-                        FetchUserStatus(rejected.getKey());
+                        FetchRejectedStatus(rejected.getKey());
                     }
                 }
             }
@@ -95,7 +95,9 @@ public class StatusActivity extends AppCompatActivity {
         });
 
     }
-    private void FetchUserStatus(String key) {
+   // private void FetchUserStatus(String key) {
+   private void FetchRejectedStatus(String key) {
+
         DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -113,8 +115,42 @@ public class StatusActivity extends AppCompatActivity {
                         profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                     }
 
-                    if(dataSnapshot.child("Status").getValue()!=null){
-                      Status= dataSnapshot.child("Status").getValue().toString();
+                    if(dataSnapshot.child("Status").getValue()==null){
+                      Status= "Rejected";
+                    }
+                    StatusObject obj = new StatusObject(userId, name, profileImageUrl, Status);
+                    resultsStatus.add(obj);
+                    mStatusAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    private void FetchAcceptedStatus(String key) {
+
+        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
+        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    String userId = dataSnapshot.getKey();
+                    String name = "";
+                    String profileImageUrl = "";
+                    String  Status="";
+
+                    if(dataSnapshot.child("name").getValue()!=null){
+                        name = dataSnapshot.child("name").getValue().toString();
+                    }
+                    if(dataSnapshot.child("profileImageUrl").getValue()!=null){
+                        profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                    }
+
+                    if(dataSnapshot.child("Status").getValue()==null){
+                        Status= "Accepted";
                     }
                     StatusObject obj = new StatusObject(userId, name, profileImageUrl, Status);
                     resultsStatus.add(obj);
