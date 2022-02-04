@@ -1,6 +1,10 @@
 package com.example.tinderv1.Matches;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +36,6 @@ public class MatchesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_matches);
 
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
@@ -42,10 +45,6 @@ public class MatchesActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mMatchesAdapter);
 
         getUserMatchId();
-
-
-
-
 
     }
 
@@ -61,6 +60,7 @@ public class MatchesActivity extends AppCompatActivity {
                     }
                 }
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -84,8 +84,6 @@ public class MatchesActivity extends AppCompatActivity {
                     if(dataSnapshot.child("profileImageUrl").getValue()!=null){
                         profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                     }
-
-
                     MatchesObject obj = new MatchesObject(userId, name, profileImageUrl);
                     resultsMatches.add(obj);
                     mMatchesAdapter.notifyDataSetChanged();
@@ -94,6 +92,7 @@ public class MatchesActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
 
             }
         });

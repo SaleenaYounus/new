@@ -63,7 +63,6 @@ public class SettingsActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
         getUserInfo();
@@ -82,6 +81,8 @@ public class SettingsActivity extends AppCompatActivity {
                 saveUserInformation();
             }
         });
+
+
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +91,6 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void getUserInfo() {
         mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {

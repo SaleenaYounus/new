@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TinderV1">
         <activity
+            android:name=".Status.StatusActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Status"
+            android:exported="true" />
+        <activity
             android:name=".Chat.ChatActivity"
             android:exported="false" />
         <activity

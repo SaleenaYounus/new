@@ -6,15 +6,43 @@
     android:layout_height="match_parent"
     tools:context="com.example.tinderv1.ChooseLoginRegistrationActivity"
     android:orientation="vertical">
+
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/login"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="100dp"
+        android:gravity="center"
         android:text="login"
-        android:id="@+id/login"/>
-    <Button
-        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:textColor="#181CF3"
+        app:icon="@android:drawable/ic_lock_idle_lock" />
+
+    <TextView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+
+        android:layout_marginBottom="10dp"
+        android:text="OR"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/register"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="100dp"
         android:text="register"
-        android:id="@+id/register"/>
+        android:textAlignment="center" />
 
 </LinearLayout>
