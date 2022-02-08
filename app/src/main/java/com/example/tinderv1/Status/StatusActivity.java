@@ -1,13 +1,21 @@
 package com.example.tinderv1.Status;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import androidx.appcompat.widget.Toolbar;
 import android.widget.Button;
+//import android.widget.Toolbar;
 
+import com.example.tinderv1.MainActivity;
+import com.example.tinderv1.MainPageActivity;
 import com.example.tinderv1.Matches.MatchesObject;
 import com.example.tinderv1.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +35,7 @@ public class StatusActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mStatusAdapter;
     private RecyclerView.LayoutManager mStatusLayoutManager;
+    private Toolbar mtoolbar;
 
     private String currentUserID;
 
@@ -34,6 +43,10 @@ public class StatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
+        mtoolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mtoolbar);
+
+
         currentUserID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -42,19 +55,40 @@ public class StatusActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mStatusLayoutManager);
         mStatusAdapter = new StatusAdapter(getDataSetStatus(), StatusActivity.this);
         mRecyclerView.setAdapter(mStatusAdapter);
-        //mBack = (Button) findViewById(R.id.back);
-        /*mBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                return;
-            }
-        });*/
+
 
         getAcceptedUserStatusId();
         getRejectedUserStatusId();
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu1, menu);
+        // return super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.acton_home){
+            Intent intent = new Intent(StatusActivity.this, MainPageActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else
+        if (id == R.id.acton_userdetails){
+            Intent intent = new Intent(StatusActivity.this, MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private String Accepted;
     private void getAcceptedUserStatusId() {
         //DatabaseReference acceptedDb = FirebaseDatabase.getInstance().getReference().child("Status").child(currentUserID).child("Accepted");

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/acton_usersstatus"
+        android:title="User status"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/acton_home"
+        android:title="Home"
+        app:showAsAction="never"/>
+
+</menu>

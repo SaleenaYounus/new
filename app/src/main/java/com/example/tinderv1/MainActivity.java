@@ -5,9 +5,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
+//import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference usersDb;
     private DatabaseReference usersDb1;
     private DatabaseReference usersDb2;
+    private Toolbar mtoolbar;
+
 
     private static final int REQUEST_CODE_PERMISSION = 2;
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -71,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mtoolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mtoolbar);
 
         try {
             if (ActivityCompat.checkSelfPermission(this, mPermission)
@@ -84,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         gps = new GPSTracker(MainActivity.this);
 
@@ -168,7 +180,40 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu1, menu);
+        // return super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.acton_usersstatus){
+            Intent intent = new Intent(MainActivity.this, StatusActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else
+        if (id == R.id.acton_home){
+            Intent intent = new Intent(MainActivity.this, MainPageActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else
+        if (id == R.id.acton_userdetails){
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void isConnectionMatch(String userId) {
         DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("connections").child("yeps").child(userId);

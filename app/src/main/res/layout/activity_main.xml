@@ -8,33 +8,43 @@
     tools:context="com.example.tinderv1.MainActivity"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <include
+            layout="@layout/toolbar_layout"/>
         <Button
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
             android:text="SignOut"
-            android:onClick="logoutUser" />
+            android:onClick="logoutUser"
+            android:textColor="#181CF3"/>
         <Button
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
             android:text="Matches"
-            android:onClick="goToMatches" />
+            android:onClick="goToMatches"
+            android:textColor="#181CF3"/>
         <Button
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
             android:text="Settings"
-            android:onClick="goToSettings" />
-        <Button
+            android:onClick="goToSettings"
+            android:textColor="#181CF3"/>
+        <!--Button
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Status"
-            android:onClick="goToStatus"/>
+            android:onClick="goToStatus"/-->
 
 
     </LinearLayout>
@@ -45,5 +55,6 @@
         android:layout_height="match_parent"
         app:rotation_degrees="15.5"
         tools:context=".MyActivity"/>
+
 
 </LinearLayout>

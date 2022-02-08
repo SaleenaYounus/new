@@ -36,11 +36,13 @@
         android:id="@+id/password"/>
 
     <Button
+        android:background="?attr/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="LOCATION"
         android:id="@+id/userlocation"/>
     <TextView
+
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -50,11 +52,13 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:background="#FDFBFC"
-        android:textColor="@color/black"/>
+        android:textColor="#181CF3"/>
 
     <Button
+        android:background="?attr/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:id="@+id/register"/>
+        android:id="@+id/register"
+        android:textColor="#181CF3"/>
 </LinearLayout>
